@@ -1,0 +1,99 @@
+# イメージのビルド
+# -t イメージ名の設定
+# . Dockerfileのパス
+docker build -t dev .
+
+# イメージからコンテナの生成・実行
+# -it  起動と同時にコンテナに入る
+# -u コンテナに入る際のユーザの指定
+# --rm 終了と同時にコンテナを削除する
+# -v volumeの指定
+# --runtime コンテナで使うランタイム名を指定
+docker run --rm -it -u daisuke dev
+# nvidia/cudaを実行する場合
+docker run --runtime=nvidia --rm -it -v `pwd`/../volumes/test:/home/daisuke/test -u daisuke dev
+
+//////////////////////////////////////////////
+
+sudo apt-get install make
+
+cd
+
+mkdir tools
+
+cd tools
+
+git clone https://github.com/verxirtam/dotfiles.git
+
+cd dotfiles
+
+make
+
+cd
+
+//////////////////////////////////////////////
+
+cd tools/
+
+ git clone https://github.com/vim/vim.git
+
+cd vim/
+
+git checkout v8.1.1364
+
+cd src/
+
+sudo apt-get install lua5.2 liblua5.2-dev
+sudo apt-get install luajit libluajit-5.1
+sudo apt-get install libperl-dev python3-dev ruby-dev
+sudo apt-get install ruby-dev --fix-missing
+sudo apt-get install python3-distutils
+
+./configure --with-features=huge --enable-gui=gnome2 --enable-perlinterp --enable-python3interp --enable-rubyinterp --enable-luainterp --with-luajit --enable-fail-if-missing --with-python3-config-dir=/usr/lib/python3.6/config-3.6m-x86_64-linux-gnu
+
+make
+
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get update \
+  && apt-get install -y tzdata
+RUN sudo apt install language-pack-ja
+
+-rw-r--r-- 1 daisuke daisuke    0  6月  9 07:06 .sudo_as_admin_successful
+
+
+
+/////////////////////////////////////////////////////////////////////
+// googletest
+/////////////////////////////////////////////////////////////////////
+sudo apt-get install wget cmake
+wget https://github.com/google/googletest/archive/release-1.8.1.tar.gz
+tar -zxvf release-1.8.1.tar.gz
+cd googletest-release-1.8.1
+mkdir build
+cd build/
+cmake ..
+make
+sudo make install
+
+
+/////////////////////////////////////////////////////////////////////
+// glfw
+/////////////////////////////////////////////////////////////////////
+sudo apt-get install libxrandr-dev libxinerama-dev libxcursor-dev
+cd /home/daisuke/tools
+git clone https://github.com/glfw/glfw.git
+cd glfw
+git checkout 3.3
+cmake .
+make
+sudo make install
+
+/////////////////////////////////////////////////////////////////////
+// glew
+/////////////////////////////////////////////////////////////////////
+sudo apt-get install libglew-dev
+
+
+
+
+
