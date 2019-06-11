@@ -1,9 +1,12 @@
 
+# ユーザID、ユーザ名、
+# グループID、グループ名を取得する
 user_name :=`id -un`
 user_id   :=`id -u`
 group_name:=`id -gn`
 group_id  :=`id -g`
 
+# dockerイメージのビルド
 .PHONY: build
 build:
 	docker build \
@@ -13,12 +16,16 @@ build:
 		--build-arg group_id=$(group_id) \
 		-t dev .
 
+# dockerコンテナの起動
+# -it 起動後にコンテナにログインする
+# --rm コンテナからログアウト後にコンテナを削除する
 .PHONY: run
 run:
 	xhost +si:localuser:$(user_name)
 	docker run --runtime=nvidia --rm -it \
 		--hostname dev \
 		-v `pwd`/../volumes/test:/home/$(user_name)/test \
+		-v `pwd`/../volumes/programs:/home/$(user_name)/programs \
 		-e DISPLAY \
 		-v /tmp/.X11-unix:/tmp/.X11-unix \
 		-u $(user_name) dev

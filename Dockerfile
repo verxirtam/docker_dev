@@ -50,7 +50,7 @@ RUN apt-get clean \
 # ユーティリティ
 RUN apt-get -y update \
    && apt-get -y install \
-        sudo htop dstat bash-completion make git wget cmake curl
+        apt-utils sudo htop dstat bash-completion make git wget cmake curl man
 
 # ディレクトリ作成
 USER ${user_name}
@@ -178,11 +178,15 @@ RUN apt-get -y update \
 
 
 # python3
+RUN apt-get -y update \
+    && apt-get install -y \
+        python3-dev python3-doc
 
 
 
 # volumeの設定
 USER ${user_name}
 RUN mkdir /home/${user_name}/test
+RUN mkdir /home/${user_name}/programs
 USER root
 
