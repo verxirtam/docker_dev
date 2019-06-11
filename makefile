@@ -24,9 +24,9 @@ run:
 		-u $(user_name) dev
 
 #githubにアップロードを行う
-#.PHONY: git
-#git:
-#	git add --all .
-#	git commit
-#	git push -u origin master
+.PHONY: git
+git:
+	git add --all .
+	git commit
+	git push -u origin master
 
