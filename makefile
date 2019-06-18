@@ -30,6 +30,18 @@ run:
 		-v /tmp/.X11-unix:/tmp/.X11-unix \
 		-u $(user_name) dev
 
+# dockerコンテナの起動
+# CUIで起動(GUIのソフトは起動できない)
+# -it 起動後にコンテナにログインする
+# --rm コンテナからログアウト後にコンテナを削除する
+.PHONY: cui
+cui:
+	docker run --runtime=nvidia --rm -it \
+		--hostname dev \
+		-v `pwd`/../volumes/test:/home/$(user_name)/test \
+		-v `pwd`/../volumes/programs:/home/$(user_name)/programs \
+		-u $(user_name) dev
+
 #githubにアップロードを行う
 .PHONY: git
 git:

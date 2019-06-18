@@ -114,24 +114,21 @@ RUN cd ~/.vim \
 # ユーザ切り替え
 USER root
 
-
-
-
-
-
 # tmux
 # ctags
 RUN apt-get -y update \
    && apt-get -y install tmux ctags
 
-
-
-
 # C++
 # g++ (gprofも入る)
 RUN apt-get -y update \
    && apt-get -y install g++
+
 # gprof2dot
+USER ${user_name}
+RUN cd /home/${user_name}/tools \
+	&& git clone https://github.com/jrfonseca/gprof2dot.git
+USER root
 
 # cuda opengl
 # nvidia/cudagl をベースとしているので既に入っている
@@ -176,13 +173,10 @@ RUN rm /home/${user_name}/tools/release-1.8.1.tar.gz
 RUN apt-get -y update \
     && apt-get -y install sqlite3 libsqlite3-0 libsqlite3-dev
 
-
 # python3
 RUN apt-get -y update \
     && apt-get install -y \
         python3-dev python3-doc
-
-
 
 # volumeの設定
 USER ${user_name}
