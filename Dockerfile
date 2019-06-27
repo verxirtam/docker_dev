@@ -62,7 +62,6 @@ USER ${user_name}
 RUN cd /home/${user_name}/tools \
     && git clone https://github.com/verxirtam/dotfiles.git \
     && cd dotfiles \
-    && git checkout docker \
     && make
 USER root
 
@@ -175,6 +174,7 @@ RUN apt-get -y update \
 
 # python3
 RUN apt-get -y update \
+    && : "Install python3"\
     && apt-get install -y \
         python3-dev python3-doc
 
