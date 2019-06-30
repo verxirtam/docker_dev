@@ -26,6 +26,8 @@ run:
 		--hostname dev \
 		-v `pwd`/../volumes/test:/home/$(user_name)/test \
 		-v `pwd`/../volumes/programs:/home/$(user_name)/programs \
+		-v `pwd`/../volumes/dev_tmux_log:/home/$(user_name)/.tmux/log \
+		-v /mnt/LS-VL6D2/daisuke:/mnt/LS-VL6D2/daisuke \
 		-e DISPLAY \
 		-v /tmp/.X11-unix:/tmp/.X11-unix \
 		-u $(user_name) dev
@@ -40,6 +42,7 @@ cui:
 		--hostname dev \
 		-v `pwd`/../volumes/test:/home/$(user_name)/test \
 		-v `pwd`/../volumes/programs:/home/$(user_name)/programs \
+		-v `pwd`/../volumes/dev_tmux_log:/home/$(user_name)/.tmux/log \
 		-u $(user_name) dev
 
 #githubにアップロードを行う

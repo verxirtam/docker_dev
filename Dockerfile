@@ -27,6 +27,14 @@ RUN touch ~/.sudo_as_admin_successful
 ENV TERM=xterm-256color
 USER root
 
+# volumeの設定
+USER ${user_name}
+RUN mkdir /home/${user_name}/test
+RUN mkdir /home/${user_name}/programs
+USER root
+RUN mkdir /mnt/LS-VL6D2 \
+	&& mkdir /mnt/LS-VL6D2/daisuke
+
 # タイムゾーンの設定
 # ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update \
@@ -62,6 +70,7 @@ USER ${user_name}
 RUN cd /home/${user_name}/tools \
     && git clone https://github.com/verxirtam/dotfiles.git \
     && cd dotfiles \
+    && : "dotfilesの適用 tmuxのログフォルダの作成も行う" \
     && make
 USER root
 
@@ -178,9 +187,23 @@ RUN apt-get -y update \
     && apt-get install -y \
         python3-dev python3-doc
 
-# volumeの設定
+# miniconda
 USER ${user_name}
-RUN mkdir /home/${user_name}/test
-RUN mkdir /home/${user_name}/programs
+# RUN cd /home/${user_name} \
+#	&& : "download miniconda installer" \
+#	&& wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh \
+#	&& : "install miniconda" \
+#	&& bash Miniconda3-latest-Linux-x86_64.sh -b -p $HOME/miniconda \
+#	&& : "delete miniconda installer" \
+#	&& rm Miniconda3-latest-Linux-x86_64.sh \
+#	&& : "tempolary setting PATH" \
+#	&& export PATH="$HOME/miniconda/bin:$PATH" \
+#	&& : "update conda" \
+#	&& conda update -q -y conda \
+#	&& : "install miniconda finished"
 USER root
+RUN apt-get -y update \
+    && apt-get install -y \
+        python3-venv
+
 
