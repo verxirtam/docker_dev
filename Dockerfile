@@ -188,20 +188,6 @@ RUN apt-get -y update \
         python3-dev python3-doc
 
 # miniconda
-USER ${user_name}
-# RUN cd /home/${user_name} \
-#	&& : "download miniconda installer" \
-#	&& wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh \
-#	&& : "install miniconda" \
-#	&& bash Miniconda3-latest-Linux-x86_64.sh -b -p $HOME/miniconda \
-#	&& : "delete miniconda installer" \
-#	&& rm Miniconda3-latest-Linux-x86_64.sh \
-#	&& : "tempolary setting PATH" \
-#	&& export PATH="$HOME/miniconda/bin:$PATH" \
-#	&& : "update conda" \
-#	&& conda update -q -y conda \
-#	&& : "install miniconda finished"
-USER root
 RUN apt-get -y update \
     && apt-get install -y \
         python3-venv
