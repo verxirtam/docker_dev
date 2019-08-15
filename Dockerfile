@@ -141,6 +141,12 @@ USER root
 # cuda opengl
 # nvidia/cudagl をベースとしているので既に入っている
 
+# cuda sample
+RUN sudo apt-get install -y cuda-samples-10-1
+USER ${user_name}
+RUN cp -ir /usr/local/cuda/samples /home/${user_name}/
+USER root
+
 # glfw
 RUN apt-get install -y libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev
 USER ${user_name}
