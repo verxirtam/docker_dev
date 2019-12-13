@@ -198,4 +198,8 @@ RUN apt-get -y update \
     && apt-get install -y \
         python3-venv
 
+#rust
+USER ${user_name}
+RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
+USER root
 
